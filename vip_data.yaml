@@ -1,0 +1,7 @@
+- network: ctlplane
+  dns_name: overcloud
+  ip_address: 10.13.1.1
+
+- network: external
+  dns_name: overcloud
+  ip_address: 172.30.178.75

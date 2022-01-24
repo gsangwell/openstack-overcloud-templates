@@ -1,0 +1,35 @@
+- name: Pri
+  name_lower: primary
+  vip: false
+  mtu: 1500
+  subnets:
+    primary_subnet:
+      ip_subnet: 10.10.0.0/16
+      allocation_pools:
+        - start: 10.10.100.1
+          end: 10.10.100.100
+      gateway_ip: 10.10.0.1
+      vlan: 1
+
+- name: Mgt
+  name_lower: management
+  vip: false
+  mtu: 1500
+  subnets:
+    management_subnet:
+      ip_subnet: 10.11.0.0/16
+      allocation_pools:
+        - start: 10.11.100.1
+          end: 10.11.100.100
+
+- name: External
+  name_lower: external
+  vip: true
+  mtu: 1500
+  subnets:
+    external_subnet:
+      ip_subnet: 172.30.178.0/24
+      allocation_pools:
+        - start: 172.30.178.100
+          end: 172.30.178.190
+      gateway_ip: 172.30.178.1

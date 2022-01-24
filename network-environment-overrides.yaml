@@ -1,0 +1,12 @@
+parameter_defaults:
+  NeutronNetworkType: 'geneve' # geneve tenant networking
+  NeutronEnableDVR: false # disable DVR
+  
+  ControllerParameters:
+    OVNCMSOptions: "enable-chassis-as-gw" # set controller nodes as OVN gw
+
+  CloudDomain: sbrx-hpc-a00.alces.network # overcloud domain
+  DnsServers: ["10.10.0.1"] # dns server for overcloud
+
+  ServiceNetMap:
+    PublicNetwork: external

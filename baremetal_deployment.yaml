@@ -1,0 +1,77 @@
+- name: Controller
+  count: 3
+  defaults:
+    networks:
+      - network: ctlplane
+        vif: true
+      - network: primary
+      - network: management
+      - network: external
+    network_config:
+      template: /home/stack/overcloud/templates/network/controller.j2
+      default_route_network: 
+      - external
+  instances:
+  - hostname: cloud1
+    name: cloud1
+    networks:
+      - network: ctlplane
+        vif: true
+        fixed_ip: 10.13.8.1
+      - network: primary
+        fixed_ip: 10.10.8.1
+      - network: management
+        fixed_ip: 10.11.108.1
+      - network: external
+        fixed_ip: 172.30.178.71
+  - hostname: cloud2
+    name: cloud2
+    networks:
+      - network: ctlplane
+        vif: true
+        fixed_ip: 10.13.8.2
+      - network: primary
+        fixed_ip: 10.10.8.2
+      - network: management
+        fixed_ip: 10.11.108.2
+      - network: external
+        fixed_ip: 172.30.178.72
+  - hostname: cloud3
+    name: cloud3
+    networks:
+      - network: ctlplane
+        vif: true
+        fixed_ip: 10.13.8.3
+      - network: primary
+        fixed_ip: 10.10.8.3
+      - network: management
+        fixed_ip: 10.11.108.3
+      - network: external
+        fixed_ip: 172.30.178.73
+
+- name: Compute
+  count: 2
+  defaults:
+    networks:
+      - network: primary
+    network_config:
+      template: /home/stack/overcloud/templates/network/compute.j2
+      default_route_network: 
+      - primary
+  instances:
+  - hostname: node1
+    name: node1
+    networks:
+      - network: ctlplane
+        vif: true
+        fixed_ip: 10.13.9.1
+      - network: primary
+        fixed_ip: 10.10.9.1
+  - hostname: node2
+    name: node2
+    networks:
+      - network: ctlplane
+        vif: true
+        fixed_ip: 10.13.9.2
+      - network: primary
+        fixed_ip: 10.10.9.2

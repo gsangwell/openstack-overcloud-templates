@@ -1,0 +1,28 @@
+---
+network_config:
+
+# br-ex
+- type: ovs_bridge
+  name: br-ex
+  use_dhcp: false
+
+# ctlplane on nic1
+- type: interface
+  name: nic1
+  mtu: {{ ctlplane_mtu }}
+  use_dhcp: false
+  addresses:
+  - ip_netmask: {{ ctlplane_ip }}/{{ ctlplane_subnet_cidr }}
+  routes: {{ ctlplane_host_routes }}
+
+# primary as vlan on nic1
+- type: vlan
+  device: nic1
+  mtu: {{ primary_mtu }}
+  vlan_id: {{ primary_vlan_id }}
+  dns_servers: {{ primary_dns_nameservers }}
+  domain: {{ dns_search_domains }}
+  use_dhcp: false
+  addresses:
+  - ip_netmask: {{ primary_ip }}/{{ primary_cidr }}
+  routes: {{ primary_host_routes }}

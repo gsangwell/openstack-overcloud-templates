@@ -1,0 +1,47 @@
+---
+network_config:
+
+# ctlplane on physical nic1
+- type: interface
+  name: nic1
+  mtu: {{ ctlplane_mtu }}
+  use_dhcp: false
+  primary: true
+  addresses:
+  - ip_netmask: {{ ctlplane_ip }}/{{ ctlplane_subnet_cidr }}
+  routes: {{ ctlplane_host_routes }}
+
+# primary as vlan on nic1
+- type: vlan
+  device: nic1
+  mtu: {{ primary_mtu }}
+  vlan_id: {{ primary_vlan_id }}
+  dns_servers: {{ primary_dns_nameservers }}
+  domain: {{ dns_search_domains }}
+  use_dhcp: false
+  addresses:
+  - ip_netmask: {{ primary_ip }}/{{ primary_cidr }}
+  routes: {{ primary_host_routes }}
+
+# br-ex on ext
+- type: ovs_bridge
+  name: br-ex
+  use_dhcp: false
+  addresses:
+  - ip_netmask: {{ external_ip }}/{{ external_cidr }}
+  routes: {{ external_host_routes }}
+  members:
+  # ext on physical nic2
+  - type: interface
+    name: nic2
+    mtu: {{ external_mtu }}
+    use_dhcp: false
+
+# management on nic3
+- type: interface
+  name: nic3
+  mtu: {{ management_mtu }}
+  routes: {{ management_host_routes }}
+  use_dhcp: false
+  addresses:
+  - ip_netmask: {{ management_ip }}/{{ management_cidr }}
